@@ -1,6 +1,3 @@
-## Aplikasi-Antrian
-Aplikasi untuk mengantur antrian pada registrasi ulang institut teknologi sumatera
-
 ## Requirement
 You need to install and configure this first:
 * apache 2.x.x
