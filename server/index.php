@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -23,27 +26,7 @@
 				        	Loket 1
 				        </a>
 			        </p>
-			        <h1></h1>
-			      </div>
-      		</div>
-      		<div class="col-md-4">
-			      <div class="dua jumbotron">
-			        <p>
-				        <a class="btn btn-lg btn-primary next_queue" href="#" role="button">
-				        	Loket 2
-				        </a>
-			        </p>
-			        <h1></h1>
-			      </div>
-      		</div>
-      		<div class="col-md-4">
-			      <div class="tiga jumbotron">
-			        <p>
-				        <a class="btn btn-lg btn-primary next_queue" href="#" role="button">
-				        	Loket 3
-				        </a>
-			        </p>
-			        <h1></h1>
+			        <h1>0</h1>
 			      </div>
       		</div>
 	    </div>
@@ -73,45 +56,35 @@
 
   	<script type="text/javascript">
 	$("document").ready(function(){
-		var loket1 = 0;
-		var loket2 = 0;
+		<?php if ($_SESSION['counter'] != NULL) { ?>
+			$(".satu h1").html(<?php echo $_SESSION['counter'] ?>);
+		<?php } ?>
 		setInterval(function() {
 			$.post("../apps/monitoring-daemon.php", function( data ){
-
-				$(".satu h1").html(data["next"][1]);
-				$(".dua h1").html(data["next"][2]);
-				$(".tiga h1").html(data["next"][3]);
-
-				if (data["next"][1]!=loket1) {
-					var angka = data["next"][1];
+				$(".satu h1").html(data["next"]);
+				if (data["next"]) {
+					var angka = data["next"];
 					for (var i = 0 ; i < angka.toString().length; i++) {
 						$(".audio").append('<audio id="suarabel'+i+'" src="../audio/'+angka.toString().substr(i,1)+'.wav" ></audio>');
 					};
-					mulai(data["next"][1], 1);
-					loket1 = data["next"][1]; 
+					mulai(data["next"],data["counter"]);
+				}else{
+					$(".satu h1").html(data["next"]);
 				};
-
-				if (data["next"][2]!=loket2) {
-					var angka = data["next"][2];
-					for (var i = 0 ; i < angka.toString().length; i++) {
-						$(".audio").append('<audio id="suarabel'+i+'" src="../audio/'+angka.toString().substr(i,1)+'.wav" ></audio>');
-					};
-					mulai(data["next"][2], 2);
-					loket2 = data["next"][2]; 
-				};
-				
 			}, "json"); 
 		}, 1000);
 		//change
 	});
+	
 	function mulai(urut, loket){
-
-		var totalwaktu = 8568.163;
+		
+		var totalwaktu = 0.0;
 		document.getElementById('in').pause();
 		document.getElementById('in').currentTime=0;
 		document.getElementById('in').play();
 
 		totalwaktu=document.getElementById('in').duration*1000;	
+		console.log(totalwaktu);
 		
 		setTimeout(function() {
 				document.getElementById('suarabelnomorurut').pause();
@@ -119,7 +92,8 @@
 				document.getElementById('suarabelnomorurut').play();
 		}, totalwaktu);
 		totalwaktu=totalwaktu+1000;
-
+		
+		
 		if(urut<10){
 			
 			setTimeout(function() {
@@ -149,7 +123,7 @@
 					};
 				}, totalwaktu);
 			totalwaktu=totalwaktu+1000;
-
+			
 		}else if(urut==10){
 
 				setTimeout(function() {
@@ -292,7 +266,9 @@
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
 
-		}else{}
+		}else{
+			//
+		}
 
 
 		setTimeout(function() {
@@ -300,8 +276,15 @@
 			document.getElementById('out').currentTime=0;
 			document.getElementById('out').play();
 		}, totalwaktu);
+		totalwaktu=totalwaktu+1200;
+		
+		setTimeout(function() {
+			
+			$.post("../apps/monitoring-daemon-result.php", { id : urut } );
+			
+		}, totalwaktu);
 		totalwaktu=totalwaktu+1000;
-
+		
 	}
 	</script>
 </html>
