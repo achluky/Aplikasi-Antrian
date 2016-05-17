@@ -18,12 +18,15 @@
 
 		$result = $db->query('SELECT Max(id) as id, counter FROM data_antrian WHERE status=0 LIMIT 1'); // execution
 		$rows = $result->fetchArray();
-		$data['next'] = $rows['id'];	
-		$data['counter'] = $rows['counter'];
-		// set wait
-		$_SESSION["counter"] = $rows['counter'];
-		$db->query('UPDATE data_antrian SET status= 1 WHERE id='. $rows['id'] .''); // wait
-		echo json_encode($data);
-		
+		if($rows['id']!=NULL)
+		{
+			$data['next'] = $rows['id'];	
+			$data['counter'] = $rows['counter'];
+			// set wait
+			$_SESSION["next"] = $rows['id'];
+			$_SESSION["counter"] = $rows['counter'];
+			$db->query('UPDATE data_antrian SET status= 1 WHERE id='. $rows['id'] .''); // wait
+			echo json_encode($data);
+		}
 	}
 ?>

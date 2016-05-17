@@ -28,6 +28,16 @@
 			        </p>
 			        <h1>0</h1>
 			      </div>
+			</div>
+      		<div class="col-md-4">
+				 <div class="dua jumbotron">
+			        <p>
+				        <a class="btn btn-lg btn-primary next_queue" href="#" role="button">
+				        	Loket 2
+				        </a>
+			        </p>
+			        <h1>0</h1>
+			      </div>
       		</div>
 	    </div>
 
@@ -56,12 +66,22 @@
 
   	<script type="text/javascript">
 	$("document").ready(function(){
-		<?php if ($_SESSION['counter'] != NULL) { ?>
+		<?php if ($_SESSION['counter'] != NULL and $_SESSION['id'] == 1) { ?>
 			$(".satu h1").html(<?php echo $_SESSION['counter'] ?>);
 		<?php } ?>
+		
+		<?php if ($_SESSION['counter'] != NULL and $_SESSION['id'] == 2) { ?>
+			$(".dua h1").html(<?php echo $_SESSION['counter'] ?>);
+		<?php } ?>
+		
 		setInterval(function() {
 			$.post("../apps/monitoring-daemon.php", function( data ){
-				$(".satu h1").html(data["next"]);
+				if (data["counter"]==1) {
+					$(".satu h1").html(data["next"]);
+				}
+				if (data["counter"]==2) {
+					$(".dua h1").html(data["next"]);
+				}
 				if (data["next"]) {
 					var angka = data["next"];
 					for (var i = 0 ; i < angka.toString().length; i++) {
@@ -69,7 +89,12 @@
 					};
 					mulai(data["next"],data["counter"]);
 				}else{
-					$(".satu h1").html(data["next"]);
+					if (data["counter"]==1) {
+						$(".satu h1").html(data["next"]);
+					}
+					if (data["counter"]==2) {
+						$(".dua h1").html(data["next"]);
+					}
 				};
 			}, "json"); 
 		}, 1000);
