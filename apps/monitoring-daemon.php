@@ -4,7 +4,12 @@
 
 	$db = new SQLite3('../db/antrian.db');
 	$data = array();
-	
+
+	// Jumlah Loket
+	$results = $db->query('SELECT  count(*) as jumlah_loket FROM client_antrian');	
+	$loket = $results->fetchArray();
+	$data['jumlah_loket'] = $loket['jumlah_loket'];
+
 	//2 done
 	//1 wait
 	//0 execution
@@ -14,6 +19,7 @@
 	$c = $wait['c'];
 	if ($c) 
 	{
+
 	}else{
 
 		$result = $db->query('SELECT id, counter FROM data_antrian WHERE status=0 ORDER BY waktu ASC LIMIT 1'); // execution
@@ -26,8 +32,9 @@
 			$_SESSION["next_server"][$rows['counter']] = $rows['id'];
 			$_SESSION["counter_server"][$rows['counter']] = $rows['counter'];
 			$db->query('UPDATE data_antrian SET status= 1 WHERE id='. $rows['id'] .''); // wait
-			echo json_encode($data);
 		}
+		
 	}
 
+	echo json_encode($data);
 ?>

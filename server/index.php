@@ -20,26 +20,9 @@
 	</head>
 
   	<body>
-
     <div class="container">
 
       	<div class="row loket">
-      		<div class="col-md-3">
-				<div class="satu jumbotron">
-					<button class="btn btn-danger" type="button">
-					LOKET 1
-				</button>
-				<h1>0</h1>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="dua jumbotron">
-					<button class="btn btn-danger" type="button">
-					LOKET 2
-				</button>
-				<h1>0</h1>
-				</div>
-			</div>
       	</div>
 
 	    <div class="audio">
@@ -47,15 +30,15 @@
 		  	<audio id="out" src="../audio/out.wav" ></audio>
 		  	<audio id="suarabel" src="../audio/Airport_Bell.mp3" ></audio>
 			<audio id="suarabelnomorurut" src="../audio/nomor-urut.wav" ></audio> 
-			<audio id="suarabelsuarabelloket" src="../audio/loket.wav" ></audio> 
-			<audio id="belas" src="../audio/belas.wav"  ></audio> 
-			<audio id="sebelas" src="../audio/sebelas.wav"  ></audio> 
-		    <audio id="puluh" src="../audio/puluh.wav"  ></audio> 
-		    <audio id="sepuluh" src="../audio/sepuluh.wav"  ></audio> 
-		    <audio id="ratus" src="../audio/ratus.wav"  ></audio> 
-		    <audio id="seratus" src="../audio/seratus.wav"  ></audio> 
-		    <audio id="suarabelloket1" src="../audio/1.wav"  ></audio> 
-		    <audio id="suarabelloket2" src="../audio/2.wav"  ></audio> 
+			<audio id="suarabelsuarabelloket" src="../audio/new/di_konter.MP3" ></audio> 
+			<audio id="belas" src="../audio/new/belas.MP3"  ></audio> 
+			<audio id="sebelas" src="../audio/new/sepuluh.MP3"  ></audio> 
+		    <audio id="puluh" src="../audio/new/puluh.MP3"  ></audio> 
+		    <audio id="sepuluh" src="../audio/new/sepuluh.MP3"  ></audio> 
+		    <audio id="ratus" src="../audio/new/ratus.MP3"  ></audio> 
+		    <audio id="seratus" src="../audio/new/seratus.wav"  ></audio> 
+		    <audio id="suarabelloket1" src="../audio/new/1.MP3"  ></audio> 
+		    <audio id="suarabelloket2" src="../audio/new/2.MP3"  ></audio> 
 		    <audio id="loket" src="../audio/loket.wav"  ></audio> 
        	</div>
 
@@ -67,23 +50,41 @@
 
   	<script type="text/javascript">
 	$("document").ready(function(){
-
 		<?php if ($_SESSION['counter_server'][1] == 1) { ?>
-			$(".satu h1").html(<?php echo $_SESSION['next_server'][1] ?>);
+		$(".1 h1").html(<?php echo $_SESSION['next_server'][1] ?>);
 		<?php } ?>
-		
 		<?php if ($_SESSION['counter_server'][2] == 2) { ?>
-			$(".dua h1").html(<?php echo $_SESSION['next_server'][2] ?>);
+		$(".2 h1").html(<?php echo $_SESSION['next_server'][2] ?>);
 		<?php } ?>
-		
+
+		var tmp_loket=0;
+
 		setInterval(function() {
 			$.post("../apps/monitoring-daemon.php", function( data ){
-				if (data["counter"]==1) {
-					$(".satu h1").html(data["next"]);
+				if(tmp_loket!=data['jumlah_loket']){
+					$(".col-md-3").remove();
+					tmp_loket=0;
 				}
-				if (data["counter"]==2) {
-					$(".dua h1").html(data["next"]);
+				if (tmp_loket==0) {
+					for (var i = 1; i<= data['jumlah_loket']; i++) {
+						loket = '<div class="col-md-3">'+
+									'<div class="'+ i +
+									 ' jumbotron">'+
+										'<button class="btn btn-danger" type="button">LOKET '+ i +'</button><h1>0</h1></button>'
+									'</div>'+
+								'</div>';
+						$(".loket").append(loket);
+					}
+
+					tmp_loket = data['jumlah_loket'];
 				}
+
+				for (var i = 1; i <= data['jumlah_loket']; i++) { 					
+					if (data["counter"]==i) {
+						$("."+i+" h1").html(data["next"]);
+					}
+				}
+
 				if (data["next"]) {
 					var angka = data["next"];
 					for (var i = 0 ; i < angka.toString().length; i++) {
@@ -91,13 +92,11 @@
 					};
 					mulai(data["next"],data["counter"]);
 				}else{
-					if (data["counter"]==1) {
-						$(".satu h1").html(data["next"]);
-					}
-					if (data["counter"]==2) {
-						$(".dua h1").html(data["next"]);
-					}
+					<?php for ($i=1; $i <= count($_SESSION["counter_server"]); $i++) { ?>
+						$(".<?php echo $i;?> h1").html(<?php echo $_SESSION['next_server'][$i] ?>);	
+					<?php } ?>
 				};
+
 			}, "json"); 
 		}, 1000);
 		//change
