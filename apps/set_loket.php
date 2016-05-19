@@ -1,7 +1,5 @@
 <?php 
 
 	session_start();
-	$_SESSION['loket'] = $_POST['loket'];
-	$_SESSION['time']     = time();
-
+	$_SESSION['loket_client'] = $_POST['loket'];
 	include "last_stage.php";

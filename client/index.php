@@ -1,7 +1,7 @@
 <?php 
 	session_start();
-	if (!isset($_SESSION["loket"])) {
-		$_SESSION["loket"] = NULL;
+	if (!isset($_SESSION["loket_client"])) {
+		$_SESSION["loket_client"] = NULL;
 	}
 ?>
 <!DOCTYPE html>
@@ -30,7 +30,7 @@
       	</div>
 
       	<div class="jumbotron">
-        <h1>
+        <h1 class="counter">
         	0
         </h1>
         <p>
@@ -63,9 +63,9 @@
 	$("document").ready(function()
 	{
 		// SET EXSIST session LOKET
-		<?php if ($_SESSION["loket"] != NULL) { ?>
-			$(".loket").val("<?php echo $_SESSION["loket"];?>");
-			<?php if($_SESSION["loket"] != 0){?>
+		<?php if ($_SESSION["loket_client"] != NULL) { ?>
+			$(".loket").val("<?php echo $_SESSION["loket_client"];?>");
+			<?php if($_SESSION["loket_client"] != 0){?>
 		    	$(".peringatan").hide();
 		    <?php }?>
 		<?php } ?>
@@ -112,8 +112,7 @@
 	    // GET NEXT COUNTER
 		$(".next_queue").click(function(){
 			var loket = $(".loket").val();
-			var counter = $(".jumbotron h1").val();
-			var data = {"loket" : loket, "counter": counter};
+			var data = {"loket" : loket};
 			$.ajax({
 				type: "POST",
 				dataType: "json",
@@ -125,6 +124,14 @@
 			});
 			return false;
 		});
+
+		// TRY CALL
+		$(".try_queue").click(function(){
+			var loket = $(".loket").val();
+			var counter = $(".counter").text();
+			$.post("../apps/daemon_try.php", { loket : loket, counter : counter } ); //request
+			return false;
+		});		
 	});
 	</script>
 </html>
