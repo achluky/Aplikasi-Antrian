@@ -1,9 +1,5 @@
 <?php
-	session_start();
-	if (!isset($_SESSION["counter_server"])) {
-		$_SESSION["counter_server"][1] = 0;
-		$_SESSION["counter_server"][2] = 0;
-	}
+		//include "../apps/daemon_init.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,15 +26,23 @@
 		  	<audio id="out" src="../audio/out.wav" ></audio>
 		  	<audio id="suarabel" src="../audio/Airport_Bell.mp3" ></audio>
 			<audio id="suarabelnomorurut" src="../audio/nomor-urut.wav" ></audio> 
-			<audio id="suarabelsuarabelloket" src="../audio/new/di_konter.MP3" ></audio> 
+			<audio id="suarabelsuarabelloket" src="../audio/new/konter.MP3" ></audio> 
 			<audio id="belas" src="../audio/new/belas.MP3"  ></audio> 
 			<audio id="sebelas" src="../audio/new/sepuluh.MP3"  ></audio> 
 		    <audio id="puluh" src="../audio/new/puluh.MP3"  ></audio> 
 		    <audio id="sepuluh" src="../audio/new/sepuluh.MP3"  ></audio> 
 		    <audio id="ratus" src="../audio/new/ratus.MP3"  ></audio> 
-		    <audio id="seratus" src="../audio/new/seratus.wav"  ></audio> 
+		    <audio id="seratus" src="../audio/new/seratus.MP3"  ></audio> 
 		    <audio id="suarabelloket1" src="../audio/new/1.MP3"  ></audio> 
 		    <audio id="suarabelloket2" src="../audio/new/2.MP3"  ></audio> 
+		    <audio id="suarabelloket3" src="../audio/new/3.MP3"  ></audio> 
+		    <audio id="suarabelloket4" src="../audio/new/4.MP3"  ></audio> 
+		    <audio id="suarabelloket5" src="../audio/new/5.MP3"  ></audio> 
+		    <audio id="suarabelloket6" src="../audio/new/6.MP3"  ></audio> 
+		    <audio id="suarabelloket7" src="../audio/new/7.MP3"  ></audio> 
+		    <audio id="suarabelloket8" src="../audio/new/8.MP3"  ></audio> 
+		    <audio id="suarabelloket9" src="../audio/new/9.MP3"  ></audio> 
+		    <audio id="suarabelloket10" src="../audio/new/sepuluh.MP3"  ></audio> 
 		    <audio id="loket" src="../audio/loket.wav"  ></audio> 
        	</div>
 
@@ -50,27 +54,21 @@
 
   	<script type="text/javascript">
 	$("document").ready(function(){
-		<?php if ($_SESSION['counter_server'][1] == 1) { ?>
-		$(".1 h1").html(<?php echo $_SESSION['next_server'][1] ?>);
-		<?php } ?>
-		<?php if ($_SESSION['counter_server'][2] == 2) { ?>
-		$(".2 h1").html(<?php echo $_SESSION['next_server'][2] ?>);
-		<?php } ?>
-
 		var tmp_loket=0;
-
 		setInterval(function() {
 			$.post("../apps/monitoring-daemon.php", function( data ){
+
 				if(tmp_loket!=data['jumlah_loket']){
 					$(".col-md-3").remove();
 					tmp_loket=0;
 				}
+
 				if (tmp_loket==0) {
 					for (var i = 1; i<= data['jumlah_loket']; i++) {
 						loket = '<div class="col-md-3">'+
 									'<div class="'+ i +
 									 ' jumbotron">'+
-										'<button class="btn btn-danger" type="button">LOKET '+ i +'</button><h1>0</h1></button>'
+										'<button class="btn btn-danger" type="button">LOKET '+ i +'</button><h1> '+data["init_counter"][i]+' </h1></button>'
 									'</div>'+
 								'</div>';
 						$(".loket").append(loket);
@@ -92,14 +90,17 @@
 					};
 					mulai(data["next"],data["counter"]);
 				}else{
-					<?php for ($i=1; $i <= count($_SESSION["counter_server"]); $i++) { ?>
-						$(".<?php echo $i;?> h1").html(<?php echo $_SESSION['next_server'][$i] ?>);	
-					<?php } ?>
+					for (var i = 1; i <= data['jumlah_loket']; i++) { 					
+						if (data["counter"]==i) {
+							$("."+i+" h1").html(data["next"]);
+						}
+					}
 				};
 
 			}, "json"); 
 		}, 1000);
 		//change
+
 	});
 	
 	function mulai(urut, loket){

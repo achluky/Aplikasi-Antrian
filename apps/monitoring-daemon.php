@@ -10,6 +10,19 @@
 	$loket = $results->fetchArray();
 	$data['jumlah_loket'] = $loket['jumlah_loket'];
 
+	$client = $db->query('SELECT client From client_antrian'); // execution
+	while ($cl = $client->fetchArray()) {
+		$rst = $db->query('SELECT max(id) as id FROM data_antrian WHERE counter ='. $cl['client'] .' and status=2;'); // execution
+		$row = $rst->fetchArray();
+		if ($row['id']==NULL) {
+			$id=0;
+		} else {
+			$id=$row['id'];
+		}
+		$data["init_counter"][$cl['client']] = $id;
+	}
+
+
 	//2 done
 	//1 wait
 	//0 execution
@@ -19,7 +32,6 @@
 	$c = $wait['c'];
 	if ($c) 
 	{
-
 	}else{
 
 		$result = $db->query('SELECT id, counter FROM data_antrian WHERE status=0 ORDER BY waktu ASC LIMIT 1'); // execution
@@ -33,7 +45,7 @@
 			$_SESSION["counter_server"][$rows['counter']] = $rows['counter'];
 			$db->query('UPDATE data_antrian SET status= 1 WHERE id='. $rows['id'] .''); // wait
 		}
-		
+
 	}
 
 	echo json_encode($data);

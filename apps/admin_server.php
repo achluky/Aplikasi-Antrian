@@ -1,7 +1,6 @@
 <?php 
 	$data = array();
 	$db = new SQLite3('../db/antrian.db');
-
 	if (isset($_POST) and count($_POST) > 0) 
 	{
 		$jmlloket = $_POST['jmlloket'];
