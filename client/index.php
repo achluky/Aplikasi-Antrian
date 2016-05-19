@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 <?php 
 	session_start();
 	if (!isset($_SESSION["loket"])) {
 		$_SESSION["loket"] = NULL;
 	}
 ?>
+=======
+>>>>>>> 70f35c8a2fe26c4fea1c887f15f597731f08f4cb
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -20,6 +23,7 @@
 
   	<body>
     <div class="container">
+<<<<<<< HEAD
       	<div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
@@ -30,10 +34,29 @@
       	</div>
 
       	<div class="jumbotron">
+=======
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">
+            	<form>
+	            	<label for="exampleInputEmail1">NOMOR LOKET</label> 
+	            	<input type="text" class="form-control loket" placeholder="Nomor Loket">
+            	</form>
+            </a></li>
+            <li role="presentation"><a href="#">ABOUT</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Queue apps</h3>
+      </div>
+
+      <div class="jumbotron">
+>>>>>>> 70f35c8a2fe26c4fea1c887f15f597731f08f4cb
         <h1>
         	0
         </h1>
         <p>
+<<<<<<< HEAD
 	        <a class="btn btn-lg btn-primary try_queue" href="#" role="button">
 	        	Ulangi Panggilan &nbsp;<span class="glyphicon glyphicon-volume-up"></span>
 	        </a>
@@ -56,11 +79,23 @@
       	<footer class="footer">
         <p>&copy; ITERA <?php echo date("Y");?></p>
       	</footer>
+=======
+	        <a class="btn btn-lg btn-success next_queue" href="#" role="button">
+	        	Next <span class="glyphicon glyphicon-chevron-right"></span>
+	        </a>
+        </p>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; ITERA <?php echo date("Y");?></p>
+      </footer>
+>>>>>>> 70f35c8a2fe26c4fea1c887f15f597731f08f4cb
     </div>
   	</body>
 
   	<script type="text/javascript">
 	$("document").ready(function(){
+<<<<<<< HEAD
 
 		// SET EXSIST session LOKET
 		<?php if ($_SESSION["loket"] != NULL) { ?>
@@ -72,6 +107,8 @@
 		<?php } ?>
 		
 		// GET LAST COUNTER
+=======
+>>>>>>> 70f35c8a2fe26c4fea1c887f15f597731f08f4cb
 		var data = {"loket": $(".loket").val()};
 		$.ajax({
 			type: "POST",
@@ -83,6 +120,7 @@
 			}
 		});
 
+<<<<<<< HEAD
 		// NUMBER LOKET
 	    $('form input').data('val',  $('form input').val() );
 	    $('form input').change(function() {
@@ -102,6 +140,11 @@
 					$(".jumbotron h1").html(data["next"]);
 				}
 			});
+=======
+	    $('form input').data('val',  $('form input').val() );
+	    $('form input').change(function() {
+	    	//set seassion or save
+>>>>>>> 70f35c8a2fe26c4fea1c887f15f597731f08f4cb
 	    });
 	    $('form input').keyup(function() {
 	        if( $('form input').val() != $('form input').data('val') ){
@@ -110,11 +153,17 @@
 	        }
 	    });
 
+<<<<<<< HEAD
 	    // GET NEXT COUNTER
 		$(".next_queue").click(function(){
 			var loket = $(".loket").val();
 			var counter = $(".jumbotron h1").val();
 			var data = {"loket" : loket, "counter": counter};
+=======
+		$(".next_queue").click(function(){
+			var loket = $(".loket").val();
+			var data = {"loket": loket};
+>>>>>>> 70f35c8a2fe26c4fea1c887f15f597731f08f4cb
 			$.ajax({
 				type: "POST",
 				dataType: "json",
@@ -126,7 +175,10 @@
 			});
 			return false;
 		});
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70f35c8a2fe26c4fea1c887f15f597731f08f4cb
 	});
 	</script>
 </html>
