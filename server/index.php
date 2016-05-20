@@ -1,6 +1,3 @@
-<?php
-		//include "../apps/daemon_init.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -14,61 +11,60 @@
 	    <link href="../assert/css/jumbotron-narrow-monitoring.css" rel="stylesheet">
 		<script src="../assert/js/jquery.min.js"></script>
 	</head>
-
   	<body>
     <div class="container">
-
+    	<center>
+	    	<div class="blog-header">
+			    <img src="../assert/img/logo.png" width="50px;" style="margin: 8px;">
+		    </div>
+	    </center>
       	<div class="row loket">
       	</div>
-
 	    <div class="audio">
-		  	<audio id="in" src="../audio/in.wav" ></audio>
-		  	<audio id="out" src="../audio/out.wav" ></audio>
-		  	<audio id="suarabel" src="../audio/Airport_Bell.mp3" ></audio>
-			<audio id="suarabelnomorurut" src="../audio/nomor-urut.wav" ></audio> 
-			<audio id="suarabelsuarabelloket" src="../audio/new/konter.MP3" ></audio> 
-			<audio id="belas" src="../audio/new/belas.MP3"  ></audio> 
-			<audio id="sebelas" src="../audio/new/sepuluh.MP3"  ></audio> 
-		    <audio id="puluh" src="../audio/new/puluh.MP3"  ></audio> 
-		    <audio id="sepuluh" src="../audio/new/sepuluh.MP3"  ></audio> 
-		    <audio id="ratus" src="../audio/new/ratus.MP3"  ></audio> 
-		    <audio id="seratus" src="../audio/new/seratus.MP3"  ></audio> 
-		    <audio id="suarabelloket1" src="../audio/new/1.MP3"  ></audio> 
-		    <audio id="suarabelloket2" src="../audio/new/2.MP3"  ></audio> 
-		    <audio id="suarabelloket3" src="../audio/new/3.MP3"  ></audio> 
-		    <audio id="suarabelloket4" src="../audio/new/4.MP3"  ></audio> 
-		    <audio id="suarabelloket5" src="../audio/new/5.MP3"  ></audio> 
-		    <audio id="suarabelloket6" src="../audio/new/6.MP3"  ></audio> 
-		    <audio id="suarabelloket7" src="../audio/new/7.MP3"  ></audio> 
-		    <audio id="suarabelloket8" src="../audio/new/8.MP3"  ></audio> 
-		    <audio id="suarabelloket9" src="../audio/new/9.MP3"  ></audio> 
-		    <audio id="suarabelloket10" src="../audio/new/sepuluh.MP3"  ></audio> 
-		    <audio id="loket" src="../audio/loket.wav"  ></audio> 
+		  	<audio id="in" src="../audio/new/in.wav"></audio>
+		  	<audio id="out" src="../audio/new/out.wav"></audio>
+		  	<audio id="suarabel" src="../audio/new/Airport_Bell.mp3"></audio>
+			<audio id="suarabelnomorurut" src="../audio/new/nomor-urut.wav"></audio> 
+			<audio id="suarabelsuarabelloket" src="../audio/new/konter.MP3"></audio> 
+			<audio id="belas" src="../audio/new/belas.MP3"></audio> 
+			<audio id="sebelas" src="../audio/new/sebelas.MP3"></audio> 
+			<audio id="puluh" src="../audio/new/puluh.MP3"></audio> 
+			<audio id="sepuluh" src="../audio/new/sepuluh.MP3"></audio> 
+			<audio id="ratus" src="../audio/new/ratus.MP3"></audio> 
+			<audio id="seratus" src="../audio/new/seratus.MP3"></audio> 
+			<audio id="suarabelloket1" src="../audio/new/1.MP3"></audio> 
+			<audio id="suarabelloket2" src="../audio/new/2.MP3"></audio> 
+			<audio id="suarabelloket3" src="../audio/new/3.MP3"></audio> 
+			<audio id="suarabelloket4" src="../audio/new/4.MP3"></audio> 
+			<audio id="suarabelloket5" src="../audio/new/5.MP3"></audio> 
+			<audio id="suarabelloket6" src="../audio/new/6.MP3"></audio> 
+			<audio id="suarabelloket7" src="../audio/new/7.MP3"></audio> 
+			<audio id="suarabelloket8" src="../audio/new/8.MP3"></audio> 
+			<audio id="suarabelloket9" src="../audio/new/9.MP3"></audio> 
+			<audio id="suarabelloket10" src="../audio/new/sepuluh.MP3"></audio> 
+			<audio id="loket" src="../audio/new/loket.MP3"></audio> 
        	</div>
-
       <footer class="footer">
         <p>&copy; ITERA <?php echo date("Y");?></p>
       </footer>
     </div>
   	</body>
-
   	<script type="text/javascript">
 	$("document").ready(function(){
 		var tmp_loket=0;
 		setInterval(function() {
 			$.post("../apps/monitoring-daemon.php", function( data ){
-
 				if(tmp_loket!=data['jumlah_loket']){
 					$(".col-md-3").remove();
 					tmp_loket=0;
 				}
-
 				if (tmp_loket==0) {
 					for (var i = 1; i<= data['jumlah_loket']; i++) {
 						loket = '<div class="col-md-3">'+
 									'<div class="'+ i +
 									 ' jumbotron">'+
-										'<button class="btn btn-danger" type="button">LOKET '+ i +'</button><h1> '+data["init_counter"][i]+' </h1></button>'
+										'<h1> '+data["init_counter"][i]+' </h1>'+
+										'<button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-credit-card">&nbsp;</span>LOKET '+ i +'</button>'+
 									'</div>'+
 								'</div>';
 						$(".loket").append(loket);
@@ -76,17 +72,15 @@
 
 					tmp_loket = data['jumlah_loket'];
 				}
-
 				for (var i = 1; i <= data['jumlah_loket']; i++) { 					
 					if (data["counter"]==i) {
 						$("."+i+" h1").html(data["next"]);
 					}
 				}
-
 				if (data["next"]) {
 					var angka = data["next"];
 					for (var i = 0 ; i < angka.toString().length; i++) {
-						$(".audio").append('<audio id="suarabel'+i+'" src="../audio/'+angka.toString().substr(i,1)+'.wav" ></audio>');
+						$(".audio").append('<audio id="suarabel'+i+'" src="../audio/new/'+angka.toString().substr(i,1)+'.MP3" ></audio>');
 					};
 					mulai(data["next"],data["counter"]);
 				}else{
@@ -100,119 +94,96 @@
 			}, "json"); 
 		}, 1000);
 		//change
-
 	});
 	
 	function mulai(urut, loket){
-		
 		var totalwaktu = 8568.163;
 		document.getElementById('in').pause();
 		document.getElementById('in').currentTime=0;
 		document.getElementById('in').play();
-
 		totalwaktu=document.getElementById('in').duration*1000;	
-		
 		setTimeout(function() {
 				document.getElementById('suarabelnomorurut').pause();
 				document.getElementById('suarabelnomorurut').currentTime=0;
 				document.getElementById('suarabelnomorurut').play();
 		}, totalwaktu);
 		totalwaktu=totalwaktu+1000;
-
 		if(urut<10){
-			
 			setTimeout(function() {
 					document.getElementById('suarabel0').pause();
 					document.getElementById('suarabel0').currentTime=0;
 					document.getElementById('suarabel0').play();
 				}, totalwaktu);
 			totalwaktu=totalwaktu+1000;
-			
 			setTimeout(function() {
 					document.getElementById('loket').pause();
 					document.getElementById('loket').currentTime=0;
 					document.getElementById('loket').play();
 				}, totalwaktu);
 			totalwaktu=totalwaktu+1000;
-
 			setTimeout(function() {
 					document.getElementById('suarabelloket'+loket+'').pause();
 					document.getElementById('suarabelloket'+loket+'').currentTime=0;
 					document.getElementById('suarabelloket'+loket+'').play();
 				}, totalwaktu);
 			totalwaktu=totalwaktu+1000;
-
 			setTimeout(function() {
 					for (var i = 0 ; i < urut.toString().length; i++) {
 						$("#suarabel"+i+"").remove();
 					};
 				}, totalwaktu);
 			totalwaktu=totalwaktu+1000;
-
 		}else if(urut==10){
-
 				setTimeout(function() {
 						document.getElementById('sepuluh').pause();
 						document.getElementById('sepuluh').currentTime=0;
 						document.getElementById('sepuluh').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
-
 				setTimeout(function() {
 						document.getElementById('loket').pause();
 						document.getElementById('loket').currentTime=0;
 						document.getElementById('loket').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						document.getElementById('suarabelloket'+loket+'').pause();
 						document.getElementById('suarabelloket'+loket+'').currentTime=0;
 						document.getElementById('suarabelloket'+loket+'').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						for (var i = 0 ; i < urut.toString().length; i++) {
 							$("#suarabel"+i+"").remove();
 						};
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 		}else if(urut ==11){
-
 				setTimeout(function() {
 						document.getElementById('sebelas').pause();
 						document.getElementById('sebelas').currentTime=0;
 						document.getElementById('sebelas').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
-
 				setTimeout(function() {
 						document.getElementById('loket').pause();
 						document.getElementById('loket').currentTime=0;
 						document.getElementById('loket').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						document.getElementById('suarabelloket'+loket+'').pause();
 						document.getElementById('suarabelloket'+loket+'').currentTime=0;
 						document.getElementById('suarabelloket'+loket+'').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						for (var i = 0 ; i < urut.toString().length; i++) {
 							$("#suarabel"+i+"").remove();
 						};
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 		}else if(urut < 20){
-							
 				setTimeout(function() {
 						document.getElementById('suarabel1').pause();
 						document.getElementById('suarabel1').currentTime=0;
@@ -225,85 +196,70 @@
 						document.getElementById('belas').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						document.getElementById('loket').pause();
 						document.getElementById('loket').currentTime=0;
 						document.getElementById('loket').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						document.getElementById('suarabelloket'+loket+'').pause();
 						document.getElementById('suarabelloket'+loket+'').currentTime=0;
 						document.getElementById('suarabelloket'+loket+'').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						for (var i = 0 ; i < urut.toString().length; i++) {
 							$("#suarabel"+i+"").remove();
 						};
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 		}else if(urut < 100){
-				
 				setTimeout(function() {
 						document.getElementById('suarabel0').pause();
 						document.getElementById('suarabel0').currentTime=0;
 						document.getElementById('suarabel0').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-				
 				setTimeout(function() {
 						document.getElementById('puluh').pause();
 						document.getElementById('puluh').currentTime=0;
 						document.getElementById('puluh').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-				
 				setTimeout(function() {
 						document.getElementById('suarabel1').pause();
 						document.getElementById('suarabel1').currentTime=0;
 						document.getElementById('suarabel1').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						document.getElementById('loket').pause();
 						document.getElementById('loket').currentTime=0;
 						document.getElementById('loket').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						document.getElementById('suarabelloket'+loket+'').pause();
 						document.getElementById('suarabelloket'+loket+'').currentTime=0;
 						document.getElementById('suarabelloket'+loket+'').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 				setTimeout(function() {
 						for (var i = 0 ; i < urut.toString().length; i++) {
 							$("#suarabel"+i+"").remove();
 						};
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
 		}else{}
-
 		setTimeout(function() {
 			document.getElementById('out').pause();
 			document.getElementById('out').currentTime=0;
 			document.getElementById('out').play();
 		}, totalwaktu);
 		totalwaktu=totalwaktu+1200;
-		
 		setTimeout(function() {
-			
 			$.post("../apps/monitoring-daemon-result.php", { id : urut } );
-			
 		}, totalwaktu);
 		totalwaktu=totalwaktu+1000;
 	}

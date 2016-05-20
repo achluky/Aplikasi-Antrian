@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	if (!isset($_SESSION["loket_client"])) {
-		$_SESSION["loket_client"] = NULL;
+		$_SESSION["loket_client"] = 0;
 	}
 ?>
 <!DOCTYPE html>
@@ -20,15 +20,6 @@
 
   	<body>
     <div class="container">
-      	<div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="#">ABOUT</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Queue Apps</h3>
-      	</div>
-
       	<div class="jumbotron">
         <h1 class="counter">
         	0
@@ -41,15 +32,17 @@
 	        	Next &nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
 	        </a>
         </p>
-
       	</div>
 
+        <!-- style="width: 370px; margin-left: auto; margin-right: auto;" -->
     	<form>
-        	<label for="exampleInputEmail1">NOMOR LOKET</label> 
-        	<input type="text" class="form-control loket" placeholder="Nomor Loket">
+        	<label for="exampleInputEmail1" style="text-align: left;"><span class="glyphicon glyphicon-credit-card">&nbsp;</span>NOMOR LOKET</label> 
+        	<select class="form-control loket" name="loket" required>
+        		<option value="0">-PILIH NOMOR LOKET-</option>
+			</select>
         	<br/>
         	<div class="alert alert-danger peringatan" role="alert">
-        		<strong>WARNING !!</strong>  Masukan Nomor Loket Anda. Jangan diisi NOL (0) yahh!!.
+        		<strong>WARNING !!</strong>  Masukan Nomor Loket Anda.
         	</div>
     	</form>
 
@@ -62,16 +55,25 @@
   	<script type="text/javascript">
 	$("document").ready(function()
 	{
+		// LIST LOKET
+		$.post("../apps/admin_init.php", function( data ){
+			for (var i = 1; i <= data['client']; i++) { 					
+				if ( i == <?php echo $_SESSION["loket_client"];?>)
+				$('.loket').append('<option value="'+i+'" selected>'+i+'</option>');
+				else
+				$('.loket').append('<option value="'+i+'">'+i+'</option>');
+			}
+		}, "json"); 
+
 		// SET EXSIST session LOKET
-		<?php if ($_SESSION["loket_client"] != NULL) { ?>
-			$(".loket").val("<?php echo $_SESSION["loket_client"];?>");
-			<?php if($_SESSION["loket_client"] != 0){?>
+		<?php if ($_SESSION["loket_client"] != 0) { ?>
 		    	$(".peringatan").hide();
-		    <?php }?>
+		<?php } else {?>
+		    	$(".peringatan").show();
 		<?php } ?>
 		
 		// GET LAST COUNTER
-		var data = {"loket": $(".loket").val()};
+		var data = {"loket": <?php echo $_SESSION["loket_client"];?>};
 		$.ajax({
 			type: "POST",
 			dataType: "json",
@@ -83,11 +85,11 @@
 		});
 
 		// NUMBER LOKET
-	    $('form input').data('val',  $('form input').val() );
-	    $('form input').change(function() {
+	    $('form select').data('val',  $('form select').val() );
+	    $('form select').change(function() {
 	    	//set seassion or save
 	    	var data = {"loket": $(".loket").val()};
-	    	if ( $(".loket").val() || $(".loket").val() != 0 ) {
+	    	if ( $(".loket").val() != 0 ) {
 	    		$(".peringatan").hide();
 	    	}else{
 	    		$(".peringatan").show();
@@ -102,9 +104,9 @@
 				}
 			});
 	    });
-	    $('form input').keyup(function() {
-	        if( $('form input').val() != $('form input').data('val') ){
-	            $('form input').data('val',  $('form input').val() );
+	    $('form select').keyup(function() {
+	        if( $('form select').val() != $('form select').data('val') ){
+	            $('form select').data('val',  $('form select').val() );
 	            $(this).change();
 	        }
 	    });
@@ -128,9 +130,13 @@
 		// TRY CALL
 		$(".try_queue").click(function(){
 			var loket = $(".loket").val();
-			var counter = $(".counter").text();
-			$.post("../apps/daemon_try.php", { loket : loket, counter : counter } ); //request
-			return false;
+			if (loket==0) {
+	    		$(".peringatan").show();
+			}else{
+				var counter = $(".counter").text();
+				$.post("../apps/daemon_try.php", { loket : loket, counter : counter } ); //request
+				return false;	
+			}
 		});		
 	});
 	</script>

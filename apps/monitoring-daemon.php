@@ -1,18 +1,17 @@
 <?php 
-	
 	session_start();
-
 	$db = new SQLite3('../db/antrian.db');
 	$data = array();
-
+	$date = date("Y-m-d");
 	// Jumlah Loket
 	$results = $db->query('SELECT  count(*) as jumlah_loket FROM client_antrian');	
 	$loket = $results->fetchArray();
 	$data['jumlah_loket'] = $loket['jumlah_loket'];
-
 	$client = $db->query('SELECT client From client_antrian'); // execution
 	while ($cl = $client->fetchArray()) {
-		$rst = $db->query('SELECT max(id) as id FROM data_antrian WHERE counter ='. $cl['client'] .' and status=2;'); // execution
+		//echo 'SELECT max(id) as id FROM data_antrian WHERE counter ='. $cl['client'] .' and status=2 and waktu like "'. $date.'%"';
+
+		$rst = $db->query('SELECT max(id) as id FROM data_antrian WHERE counter ='. $cl['client'] .' and status=2'); // execution
 		$row = $rst->fetchArray();
 		if ($row['id']==NULL) {
 			$id=0;
@@ -21,19 +20,15 @@
 		}
 		$data["init_counter"][$cl['client']] = $id;
 	}
-
-
 	//2 done
 	//1 wait
 	//0 execution
-
 	$result_wait = $db->query('SELECT count(*) as c FROM data_antrian WHERE status=1'); // wait
 	$wait = $result_wait->fetchArray();
 	$c = $wait['c'];
 	if ($c) 
 	{
 	}else{
-
 		$result = $db->query('SELECT id, counter FROM data_antrian WHERE status=0 ORDER BY waktu ASC LIMIT 1'); // execution
 		$rows = $result->fetchArray();
 		if($rows['id']!=NULL)
@@ -47,6 +42,5 @@
 		}
 
 	}
-
 	echo json_encode($data);
 ?>
