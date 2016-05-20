@@ -1,11 +1,10 @@
 # Aplikasi Antrian
 Aplikasi ini hanya sederhana yang dibuat untuk proses registrasi mahasiswa baru di Institut Teknologi Sumatra. Teridiri dari 3 interface yaitu :
 * Client
-* Monitoring
-* Admin
-
 ![Client](assert/img/client.png)
+* Monitoring
 ![Monitoring](assert/img/monitoring.png)
+* Admin
 ![Admin](assert/img/client.png)
 
 ## Requirement
