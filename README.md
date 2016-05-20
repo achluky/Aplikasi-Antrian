@@ -4,3 +4,4 @@ You need to install and configure this first:
 * PHP 5.x.x (with pdo_sqlite,json)
 * SQLite3
 * Jquery
+okta pilopa
