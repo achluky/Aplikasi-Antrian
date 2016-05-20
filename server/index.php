@@ -16,6 +16,8 @@
     	<center>
 	    	<div class="blog-header">
 			    <img src="../assert/img/logo.png" width="50px;" style="margin: 8px;">
+				<br/>
+				<marquee behavior="alternate"><b>Selamat datang di Institut Teknologi Sumatera</b>  </marquee>
 		    </div>
 	    </center>
       	<div class="row loket">
@@ -45,8 +47,10 @@
 			<audio id="loket" src="../audio/new/loket.MP3"></audio> 
        	</div>
       <footer class="footer">
-        <p>&copy; ITERA <?php echo date("Y");?></p>
-      </footer>
+        <center><p>&copy; UPT TIK ITERA <?php echo date("Y");?></p></center>
+		<br/>
+		<marquee behavior="alternate"><b>Selamat datang di Institut Teknologi Sumatera</b>  </marquee>   
+      </footer> 
     </div>
   	</body>
   	<script type="text/javascript">
