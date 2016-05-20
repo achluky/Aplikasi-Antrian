@@ -24,7 +24,7 @@
 		  	<audio id="in" src="../audio/new/in.wav"></audio>
 		  	<audio id="out" src="../audio/new/out.wav"></audio>
 		  	<audio id="suarabel" src="../audio/new/Airport_Bell.mp3"></audio>
-			<audio id="suarabelnomorurut" src="../audio/new/nomor-urut.wav"></audio> 
+			<audio id="suarabelnomorurut" src="../audio/new/nomor-urut.MP3"></audio> 
 			<audio id="suarabelsuarabelloket" src="../audio/new/konter.MP3"></audio> 
 			<audio id="belas" src="../audio/new/belas.MP3"></audio> 
 			<audio id="sebelas" src="../audio/new/sebelas.MP3"></audio> 
