@@ -5,7 +5,7 @@ Aplikasi ini hanya sederhana yang dibuat untuk proses registrasi mahasiswa baru 
 * Monitoring
 ![Monitoring](assert/img/monitoring.png)
 * Admin
-![Admin](assert/img/client.png)
+![Admin](assert/img/admin.png)
 
 ## Requirement
 Install
