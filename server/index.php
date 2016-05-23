@@ -523,26 +523,116 @@
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
 		}else if(urut < 999){
-			setTimeout(function() {
+				setTimeout(function() {
 						document.getElementById('suarabel0').pause();
 						document.getElementById('suarabel0').currentTime=0;
 						document.getElementById('suarabel0').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-				setTimeout(function() {
-						document.getElementById('seratus').pause();
-						document.getElementById('seratus').currentTime=0;
-						document.getElementById('seratus').play();
-					}, totalwaktu);
+				if (urut.toString().substr(1,1) == 0 && urut.toString().substr(2,1)==0) { // 200 300 400 ..
+					setTimeout(function() {
+							document.getElementById('ratus').pause();
+							document.getElementById('ratus').currentTime=0;
+							document.getElementById('ratus').play();
+						}, totalwaktu);
+					totalwaktu=totalwaktu+1000;
+				} else if(urut.toString().substr(1,1) == 0 && urut.toString().substr(2,1)!=0){ // 201 304 405 506
+					setTimeout(function() {
+							document.getElementById('ratus').pause();
+							document.getElementById('ratus').currentTime=0;
+							document.getElementById('ratus').play();
+						}, totalwaktu);
+					totalwaktu=totalwaktu+1000;
+					setTimeout(function() {
+							document.getElementById('suarabel2').pause();
+							document.getElementById('suarabel2').currentTime=0;
+							document.getElementById('suarabel2').play();
+						}, totalwaktu);
+					totalwaktu=totalwaktu+1000;
+				}else if(urut.toString().substr(1,1) != 0 && urut.toString().substr(2,1)!=0){
+					if (urut.toString().substr(1,1)==1) {
+						if (urut.toString().substr(2,1)==1) { // 211 311 411 511
+							setTimeout(function() {
+									document.getElementById('ratus').pause();
+									document.getElementById('ratus').currentTime=0;
+									document.getElementById('ratus').play();
+								}, totalwaktu);
+							totalwaktu=totalwaktu+1000;
+							setTimeout(function() {
+									document.getElementById('sebelas').pause();
+									document.getElementById('sebelas').currentTime=0;
+									document.getElementById('sebelas').play();
+								}, totalwaktu);
+							totalwaktu=totalwaktu+1000;
+						}else{ //212 215 219
+							setTimeout(function() {
+									document.getElementById('suarabel1').pause();
+									document.getElementById('suarabel1').currentTime=0;
+									document.getElementById('suarabel1').play();
+								}, totalwaktu);
+							totalwaktu=totalwaktu+1000;
+							setTimeout(function() {
+									document.getElementById('belas').pause();
+									document.getElementById('belas').currentTime=0;
+									document.getElementById('belas').play();
+								}, totalwaktu);
+							totalwaktu=totalwaktu+1000;
+						}
+					}else{
+						setTimeout(function() {
+								document.getElementById('ratus').pause();
+								document.getElementById('ratus').currentTime=0;
+								document.getElementById('ratus').play();
+							}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						setTimeout(function() {
+								document.getElementById('suarabel1').pause();
+								document.getElementById('suarabel1').currentTime=0;
+								document.getElementById('suarabel1').play();
+							}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						setTimeout(function() {
+								document.getElementById('puluh').pause();
+								document.getElementById('puluh').currentTime=0;
+								document.getElementById('puluh').play();
+							}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						if (urut%10!=0) {
+							setTimeout(function() {
+									document.getElementById('suarabel2').pause();
+									document.getElementById('suarabel2').currentTime=0;
+									document.getElementById('suarabel2').play();
+								}, totalwaktu);
+							totalwaktu=totalwaktu+1000;
+						}
+						setTimeout(function() {
+								document.getElementById('loket').pause();
+								document.getElementById('loket').currentTime=0;
+								document.getElementById('loket').play();
+							}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						setTimeout(function() {
+								document.getElementById('suarabelloket'+loket+'').pause();
+								document.getElementById('suarabelloket'+loket+'').currentTime=0;
+								document.getElementById('suarabelloket'+loket+'').play();
+							}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						setTimeout(function() {
+								for (var i = 0 ; i < urut.toString().length; i++) {
+									$("#suarabel"+i+"").remove();
+								};
+							}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+					}
+				}else{
+					
+				}
 				setTimeout(function() {
 						document.getElementById('loket').pause();
 						document.getElementById('loket').currentTime=0;
 						document.getElementById('loket').play();
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
-
-				if (urut == 300 or urut == 400 or urut == 500 or urut == 600 or urut == 700 or urut == 800 or urut == 900) {}
-				
 				setTimeout(function() {
 						document.getElementById('suarabelloket'+loket+'').pause();
 						document.getElementById('suarabelloket'+loket+'').currentTime=0;
