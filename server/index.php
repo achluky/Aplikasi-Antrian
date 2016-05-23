@@ -48,8 +48,6 @@
        	</div>
       <footer class="footer">
         <center><p>&copy; UPT TIK ITERA <?php echo date("Y");?></p></center>
-		<br/>
-		<marquee behavior="alternate"><b>Selamat datang di Institut Teknologi Sumatera</b>  </marquee>   
       </footer> 
     </div>
   	</body>
