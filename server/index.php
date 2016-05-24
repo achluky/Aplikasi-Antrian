@@ -17,7 +17,7 @@
 	    	<div class="blog-header">
 			    <img src="../assert/img/logo.png" width="100px;" style="margin: 8px;">
 				<br/>
-				<marquee behavior="alternate"><h3><b>Selamat datang di Institut Teknologi Sumatera</b></h3>  </marquee>
+				<marquee behavior="alternate"><h3 style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;"><b>Selamat datang di Institut Teknologi Sumatera</b></h3>  </marquee>
 		    </div>
 	    </center>
       	<div class="row loket">
@@ -676,10 +676,23 @@
 		}, totalwaktu);
 		totalwaktu=totalwaktu+1200;
 		setTimeout(function() {
-			$.post("../apps/monitoring-daemon-result.php", { id : urut } );
+			$.post("../apps/monitoring-daemon-result.php", { id : urut }, function(data){
+				if (!data.status) {
+					ulangi(urut);		
+				}
+			}, 'json');
 		}, totalwaktu);
 		totalwaktu=totalwaktu+1000;
 	}
+
+	function ulangi(value) {
+		$.post("../apps/monitoring-daemon-result.php", { id : urut }, function(data){
+			if (!data.status) {
+				ulangi(urut);		
+			}
+		}, 'json');
+	}
+
 	</script>
 </html>
 

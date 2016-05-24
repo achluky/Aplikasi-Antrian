@@ -22,12 +22,20 @@
     <div class="container">
 
     	<form>
+        	<label for="exampleInputEmail1">Jumlah Loket</label>
+
     		<div class="alert alert-info alert-dismissible peringatan" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong>Info !</strong> Jumlah loket berhasil disave
 			</div>
-        	<label for="exampleInputEmail1">Jumlah Loket</label> 
+        	
         	<input type="text" class="form-control loket" placeholder="Jumlah Loket">
+        	<br/>
+        	<label for="exampleInputEmail1">Reset DB</label>
+        	<div class="reset_status">
+			</div> 
+        	<button type="button" class="btn btn-primary reset">Reset</button>
+			<br/>
         	<br/>
         	<label for="exampleInputEmail1">Real-time Database</label> 
         	<div class="highlight">
@@ -79,6 +87,14 @@
 	            $(this).change();
 	        }
 	    });
+
+	    // RESET 
+		$(".reset").click(function(){
+			$.post( "../apps/admin_reset.php", function( data ) {
+			var alert = '<div class="alert alert-info alert-dismissible reset_status" role="alert">'+data['status']+'</div>';
+			$(".reset_status").html(alert);
+			},"json");
+		});
 
 	});
 	</script>
