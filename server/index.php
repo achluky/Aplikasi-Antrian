@@ -16,7 +16,6 @@
     	<center>
 	    	<div class="blog-header">
 			    <img src="../assert/img/logo.png" width="100px;" style="margin: 8px;">
-				<br/>
 				<marquee behavior="alternate"><h3 style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;"><b>Selamat datang di Institut Teknologi Sumatera</b></h3>  </marquee>
 		    </div>
 	    </center>

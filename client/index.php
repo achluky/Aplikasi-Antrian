@@ -1,6 +1,7 @@
 <?php 
 	session_start();
-	if (!isset($_SESSION["loket_client"])) {
+	if (!isset($_SESSION["loket_client"])) 
+	{
 		$_SESSION["loket_client"] = 0;
 	}
 ?>
@@ -112,7 +113,8 @@
 	    });
 
 	    // GET NEXT COUNTER
-		$(".next_queue").click(function(){
+		$(".next_queue").click(function()
+		{
 			var loket = $(".loket").val();
 			var data = {"loket" : loket};
 			$.ajax({
