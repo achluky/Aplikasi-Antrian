@@ -15,9 +15,9 @@
     <div class="container">
     	<center>
 	    	<div class="blog-header">
-			    <img src="../assert/img/logo.png" width="50px;" style="margin: 8px;">
+			    <img src="../assert/img/logo.png" width="100px;" style="margin: 8px;">
 				<br/>
-				<marquee behavior="alternate"><b>Selamat datang di Institut Teknologi Sumatera</b>  </marquee>
+				<marquee behavior="alternate"><h3><b>Selamat datang di Institut Teknologi Sumatera</b></h3>  </marquee>
 		    </div>
 	    </center>
       	<div class="row loket">
@@ -64,7 +64,7 @@
 					for (var i = 1; i<= data['jumlah_loket']; i++) {
 						loket = '<div class="col-md-3">'+
 									'<div class="'+ i +
-									 ' jumbotron">'+
+									 ' jumbotron" style="padding-top:20px;padding-bottom:20px;">'+
 										'<h1> '+data["init_counter"][i]+' </h1>'+
 										'<button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-credit-card">&nbsp;</span>LOKET '+ i +'</button>'+
 									'</div>'+
@@ -500,10 +500,11 @@
 					}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
 				setTimeout(function() {
-						document.getElementById('seratus').pause();
-						document.getElementById('seratus').currentTime=0;
-						document.getElementById('seratus').play();
+						document.getElementById('ratus').pause();
+						document.getElementById('ratus').currentTime=0;
+						document.getElementById('ratus').play();
 					}, totalwaktu);
+				totalwaktu=totalwaktu+1000;
 				setTimeout(function() {
 						document.getElementById('loket').pause();
 						document.getElementById('loket').currentTime=0;
@@ -527,7 +528,7 @@
 						document.getElementById('suarabel0').pause();
 						document.getElementById('suarabel0').currentTime=0;
 						document.getElementById('suarabel0').play();
-					}, totalwaktu);
+				}, totalwaktu);
 				totalwaktu=totalwaktu+1000;
 				if (urut.toString().substr(1,1) == 0 && urut.toString().substr(2,1)==0) { // 200 300 400 ..
 					setTimeout(function() {
@@ -549,6 +550,40 @@
 							document.getElementById('suarabel2').play();
 						}, totalwaktu);
 					totalwaktu=totalwaktu+1000;
+				}else if(urut.toString().substr(1,1) != 0 && urut.toString().substr(2,1)==0){ //210 250 230
+					if(urut.toString().substr(1,1) == 1){ //210
+						setTimeout(function() {
+							document.getElementById('ratus').pause();
+							document.getElementById('ratus').currentTime=0;
+							document.getElementById('ratus').play();
+						}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						setTimeout(function() {
+							document.getElementById('sepuluh').pause();
+							document.getElementById('sepuluh').currentTime=0;
+							document.getElementById('sepuluh').play();
+						}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+					}else{
+						setTimeout(function() {
+							document.getElementById('ratus').pause();
+							document.getElementById('ratus').currentTime=0;
+							document.getElementById('ratus').play();
+						}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						setTimeout(function() {
+							document.getElementById('suarabel1').pause();
+							document.getElementById('suarabel1').currentTime=0;
+							document.getElementById('suarabel1').play();
+						}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+						setTimeout(function() {
+							document.getElementById('puluh').pause();
+							document.getElementById('puluh').currentTime=0;
+							document.getElementById('puluh').play();
+						}, totalwaktu);
+						totalwaktu=totalwaktu+1000;
+					}
 				}else if(urut.toString().substr(1,1) != 0 && urut.toString().substr(2,1)!=0){
 					if (urut.toString().substr(1,1)==1) {
 						if (urut.toString().substr(2,1)==1) { // 211 311 411 511
@@ -566,9 +601,15 @@
 							totalwaktu=totalwaktu+1000;
 						}else{ //212 215 219
 							setTimeout(function() {
-									document.getElementById('suarabel1').pause();
-									document.getElementById('suarabel1').currentTime=0;
-									document.getElementById('suarabel1').play();
+									document.getElementById('ratus').pause();
+									document.getElementById('ratus').currentTime=0;
+									document.getElementById('ratus').play();
+								}, totalwaktu);
+							totalwaktu=totalwaktu+1000;
+							setTimeout(function() {
+									document.getElementById('suarabel2').pause();
+									document.getElementById('suarabel2').currentTime=0;
+									document.getElementById('suarabel2').play();
 								}, totalwaktu);
 							totalwaktu=totalwaktu+1000;
 							setTimeout(function() {
@@ -605,28 +646,9 @@
 								}, totalwaktu);
 							totalwaktu=totalwaktu+1000;
 						}
-						setTimeout(function() {
-								document.getElementById('loket').pause();
-								document.getElementById('loket').currentTime=0;
-								document.getElementById('loket').play();
-							}, totalwaktu);
-						totalwaktu=totalwaktu+1000;
-						setTimeout(function() {
-								document.getElementById('suarabelloket'+loket+'').pause();
-								document.getElementById('suarabelloket'+loket+'').currentTime=0;
-								document.getElementById('suarabelloket'+loket+'').play();
-							}, totalwaktu);
-						totalwaktu=totalwaktu+1000;
-						setTimeout(function() {
-								for (var i = 0 ; i < urut.toString().length; i++) {
-									$("#suarabel"+i+"").remove();
-								};
-							}, totalwaktu);
-						totalwaktu=totalwaktu+1000;
 					}
-				}else{
-					
 				}
+
 				setTimeout(function() {
 						document.getElementById('loket').pause();
 						document.getElementById('loket').currentTime=0;
