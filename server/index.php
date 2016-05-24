@@ -668,30 +668,21 @@
 				totalwaktu=totalwaktu+1000;
 		}
 
-		setTimeout(function() {
+		setTimeout(function(){
 			document.getElementById('out').pause();
 			document.getElementById('out').currentTime=0;
 			document.getElementById('out').play();
 		}, totalwaktu);
-		totalwaktu=totalwaktu+1200;
+		totalwaktu=totalwaktu+1000;
 		setTimeout(function() {
 			$.post("../apps/monitoring-daemon-result.php", { id : urut }, function(data){
 				if (!data.status) {
-					ulangi(urut);		
+					console.log(data.status);		
 				}
 			}, 'json');
 		}, totalwaktu);
 		totalwaktu=totalwaktu+1000;
 	}
-
-	function ulangi(value) {
-		$.post("../apps/monitoring-daemon-result.php", { id : urut }, function(data){
-			if (!data.status) {
-				ulangi(urut);		
-			}
-		}, 'json');
-	}
-
 	</script>
 </html>
 

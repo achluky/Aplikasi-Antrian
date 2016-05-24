@@ -1,5 +1,5 @@
 <?php
-	$link = mysql_connect('localhost', 'root', '');
-	if (!$link) {
-	    die('Could not connect: ' . mysql_error());
+	$mysqli = @new mysqli('localhost', 'root', '', 'antrian');
+	if ($mysqli->connect_errno) {
+	    die('Connect Error: ' . $mysqli->connect_errno);
 	}

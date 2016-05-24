@@ -20,15 +20,12 @@
 
   	<body>
     <div class="container">
-
     	<form>
         	<label for="exampleInputEmail1">Jumlah Loket</label>
-
     		<div class="alert alert-info alert-dismissible peringatan" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong>Info !</strong> Jumlah loket berhasil disave
 			</div>
-        	
         	<input type="text" class="form-control loket" placeholder="Jumlah Loket">
         	<br/>
         	<label for="exampleInputEmail1">Reset DB</label>
@@ -36,16 +33,8 @@
 			</div> 
         	<button type="button" class="btn btn-primary reset">Reset</button>
 			<br/>
-        	<br/>
-        	<label for="exampleInputEmail1">Real-time Database</label> 
-        	<div class="highlight">
-        		<pre>
-        			<code class="language-html" data-lang="html">
-					</code>
-				</pre>
-			</div>
     	</form>
-
+    	<br/>
       	<footer class="footer">
         <p>&copy; ITERA <?php echo date("Y");?></p>
       	</footer>

@@ -7,6 +7,11 @@
 	    $data = array('next' => $next_counter);
 	    echo json_encode($data);
 	}else{
-		include "";
+		include "mysql_connect.php";
+		$results = $mysqli->query('INSERT INTO data_antrian (counter,waktu,status) VALUES ('.$loket.',"'.date("Y-m-d H:i:s").'",0)');
+		$next_counter = $mysqli->insert_id;
+	    $data = array('next' => $next_counter);
+	    echo json_encode($data);
+	    include 'mysql_close.php';
 	}
 ?>
