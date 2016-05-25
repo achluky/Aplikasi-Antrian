@@ -52,6 +52,7 @@ body {
 }
 .jumbotron h1{
   font-size: 150px;
+  font-weight: bold;
 }
 
 /* Supporting marketing content */

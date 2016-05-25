@@ -116,17 +116,22 @@
 		$(".next_queue").click(function()
 		{
 			var loket = $(".loket").val();
-			var data = {"loket" : loket};
-			$.ajax({
-				type: "POST",
-				dataType: "json",
-				url: "../apps/daemon.php",//request
-				data: data,
-				success: function(data) {
-					$(".jumbotron h1").html(data["next"]);
-				}
-			});
-			return false;
+			if (loket==0) {
+				$(".peringatan").show();
+			}else{
+				var data = {"loket" : loket};
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "../apps/daemon.php",//request
+					data: data,
+					success: function(data) {
+						$(".jumbotron h1").html(data["next"]);
+					}
+				});
+				return false;
+			}
+			
 		});
 
 		// TRY CALL
