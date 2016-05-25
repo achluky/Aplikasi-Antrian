@@ -11,6 +11,5 @@ Aplikasi ini hanya sederhana yang dibuat untuk proses registrasi mahasiswa baru 
 Install
 * apache 2.x.x
 * PHP 5.x.x (with pdo_sqlite,json)
-* SQLite3
+* Mysql 5.x.x >
 * Jquery
-okta pilopa
