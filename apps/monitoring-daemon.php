@@ -30,9 +30,6 @@
 		$wait = $result_wait->fetch_array();
 		$count = $wait['count'];
 
-		// $count = $db->querySingle('SELECT sum(status) as count FROM data_antrian WHERE status=1');
-		// echo $count;
-
 		if ($count){
 			//echo $count;
 		}else{

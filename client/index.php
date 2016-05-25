@@ -21,14 +21,14 @@
 
   	<body>
     <div class="container">
-      	<div class="jumbotron">
+        <button class="btn btn-small btn-primary try_queue" type="button" style="float:right;padding:20px;">
+            Ulangi Panggilan &nbsp;<span class="glyphicon glyphicon-volume-up"></span>    
+        </button>
+        <div class="jumbotron">
         <h1 class="counter">
         	0
         </h1>
         <p>
-	        <a class="btn btn-lg btn-primary try_queue" href="#" role="button">
-	        	Ulangi Panggilan &nbsp;<span class="glyphicon glyphicon-volume-up"></span>
-	        </a>
 	        <a class="btn btn-lg btn-success next_queue" href="#" role="button">
 	        	Next &nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
 	        </a>
@@ -133,18 +133,39 @@
 			}
 			
 		});
+		function adudu(loket, counter){
+			 setInterval(function() {
+				 $.post("../apps/daemon_try_cek.php", { loket : loket, counter : counter }, function(msg){
+					if(msg.huft == 2){
+						$(".try_queue").show();
+					}
+				},'JSON');
+			}, 1000);
+		 }
+		
 
 		// TRY CALL
 		$(".try_queue").click(function(){
+		
+	    	//$(this).attr("disabled", "disabled");
+			
 			var loket = $(".loket").val();
 			if (loket==0) {
 	    		$(".peringatan").show();
 			}else{
 				var counter = $(".counter").text();
-				$.post("../apps/daemon_try.php", { loket : loket, counter : counter } ); //request
-				return false;	
+				$.post("../apps/daemon_try.php", { loket : loket, counter : counter }, function(msg){
+					if(msg.huft == 0){
+						//console.log(msg.huft);
+						$(".try_queue").hide();
+						adudu(loket, counter);
+					}
+				},'JSON'); //request
+				return false;
 			}
-		});		
+			
+		});	
+		
 	});
 	</script>
 </html>

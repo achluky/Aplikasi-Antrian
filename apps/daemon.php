@@ -8,6 +8,7 @@
 	    echo json_encode($data);
 	}else{
 		include "mysql_connect.php";
+		//echo 'INSERT INTO data_antrian (counter,waktu,status) VALUES ('.$loket.',"'.date("Y-m-d H:i:s").'",0)';
 		$results = $mysqli->query('INSERT INTO data_antrian (counter,waktu,status) VALUES ('.$loket.',"'.date("Y-m-d H:i:s").'",0)');
 		$next_counter = $mysqli->insert_id;
 	    $data = array('next' => $next_counter);
