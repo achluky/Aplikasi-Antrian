@@ -18,7 +18,6 @@
 	    <link href="../assert/css/jumbotron-narrow.css" rel="stylesheet">
 		<script src="../assert/js/jquery.min.js"></script>
 	</head>
-
   	<body>
     <div class="container">
         <button class="btn btn-small btn-primary try_queue" type="button" style="float:right;padding:20px;">
@@ -34,8 +33,6 @@
 	        </a>
         </p>
       	</div>
-
-        <!-- style="width: 370px; margin-left: auto; margin-right: auto;" -->
     	<form>
         	<label for="exampleInputEmail1" style="text-align: left;"><span class="glyphicon glyphicon-credit-card">&nbsp;</span>NOMOR LOKET</label> 
         	<select class="form-control loket" name="loket" required>
@@ -46,13 +43,11 @@
         		<strong>WARNING !!</strong>  Masukan Nomor Loket Anda.
         	</div>
     	</form>
-
       	<footer class="footer">
         <p>&copy; ITERA <?php echo date("Y");?></p>
       	</footer>
     </div>
   	</body>
-
   	<script type="text/javascript">
 	$("document").ready(function()
 	{
@@ -133,8 +128,12 @@
 			}
 			
 		});
+
+		var timerId=0;
+
+		// DUDU
 		function adudu(loket, counter){
-			 setInterval(function() {
+			timerId = setInterval(function() {
 				 $.post("../apps/daemon_try_cek.php", { loket : loket, counter : counter }, function(msg){
 					if(msg.huft == 2){
 						$(".try_queue").show();
@@ -143,12 +142,8 @@
 			}, 1000);
 		 }
 		
-
 		// TRY CALL
 		$(".try_queue").click(function(){
-		
-	    	//$(this).attr("disabled", "disabled");
-			
 			var loket = $(".loket").val();
 			if (loket==0) {
 	    		$(".peringatan").show();
@@ -156,14 +151,13 @@
 				var counter = $(".counter").text();
 				$.post("../apps/daemon_try.php", { loket : loket, counter : counter }, function(msg){
 					if(msg.huft == 0){
-						//console.log(msg.huft);
 						$(".try_queue").hide();
+						clearInterval(timerId);
 						adudu(loket, counter);
 					}
 				},'JSON'); //request
 				return false;
 			}
-			
 		});	
 		
 	});

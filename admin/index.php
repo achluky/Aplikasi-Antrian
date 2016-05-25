@@ -17,10 +17,14 @@
 	    <link href="../assert/css/jumbotron-narrow.css" rel="stylesheet">
 		<script src="../assert/js/jquery.min.js"></script>
 	</head>
-
   	<body>
     <div class="container">
     	<form>
+    		<div class="jumbotron">
+	        <h1 class="counter">
+	        	<span class="glyphicon glyphicon-user"></span>
+	        </h1>
+	      	</div>
         	<label for="exampleInputEmail1">Jumlah Loket</label>
     		<div class="alert alert-info alert-dismissible peringatan" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -50,8 +54,7 @@
 	    $.post( "../apps/admin_server.php", function( data ) {
 			$(".loket").val(data['jumlah_loket']);
 		},"json");
-
-
+		
 		// NUMBER LOKET
 	    $('form input').data('val',  $('form input').val() );
 	    $('form input').change(function() {
