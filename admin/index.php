@@ -21,22 +21,11 @@
     <div class="container">
     	<form>
     		<div class="jumbotron">
-	        <h1 class="counter">
-	        	<span class="glyphicon glyphicon-user"></span>
+	        <h1 class="next">
+	        	<span class="glyphicon glyphicon-book"></span>
 	        </h1>
+        	<button type="button" class="btn btn-primary next_getway">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
 	      	</div>
-        	<label for="exampleInputEmail1">Jumlah Loket</label>
-    		<div class="alert alert-info alert-dismissible peringatan" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Info !</strong> Jumlah loket berhasil disave
-			</div>
-        	<input type="text" class="form-control loket" placeholder="Jumlah Loket">
-        	<br/>
-        	<label for="exampleInputEmail1">Reset DB</label>
-        	<div class="reset_status">
-			</div> 
-        	<button type="button" class="btn btn-primary reset">Reset</button>
-			<br/>
     	</form>
     	<br/>
       	<footer class="footer">
@@ -44,47 +33,21 @@
       	</footer>
     </div>
   	</body>
-
   	<script type="text/javascript">
 	$("document").ready(function()
 	{
-		$('.peringatan').hide();
 
-		// GET JUMLAH LOKET
-	    $.post( "../apps/admin_server.php", function( data ) {
-			$(".loket").val(data['jumlah_loket']);
+		// GET LAST COUNTER
+	    $.post( "../apps/admin_getway.php", function( data ) {
+			$(".next").html(data['next']);
 		},"json");
 		
-		// NUMBER LOKET
-	    $('form input').data('val',  $('form input').val() );
-	    $('form input').change(function() {
-	    	//set seassion or save
-	    	var data = {"jmlloket": $(".loket").val()};
-			$.ajax({
-				type: "POST",
-				dataType: "json",
-				url: "../apps/admin_server.php",//request
-				data: data,
-				success: function(data) {
-					if (data["status"])
-					{
-						$('.peringatan').show();
-					}
-				}
-			});
-	    });
-	    $('form input').keyup(function() {
-	        if( $('form input').val() != $('form input').data('val') ){
-	            $('form input').data('val',  $('form input').val() );
-	            $(this).change();
-	        }
-	    });
-
+	
 	    // RESET 
-		$(".reset").click(function(){
-			$.post( "../apps/admin_reset.php", function( data ) {
-			var alert = '<div class="alert alert-info alert-dismissible reset_status" role="alert">'+data['status']+'</div>';
-			$(".reset_status").html(alert);
+		$(".next_getway").click(function(){
+			var next_current = $(".next").text();
+			$.post( "../apps/admin_getway.php", {"next_current": next_current}, function( data ) {
+				$(".next").html(data['next']);
 			},"json");
 		});
 

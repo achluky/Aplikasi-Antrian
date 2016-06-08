@@ -122,6 +122,11 @@
 					data: data,
 					success: function(data) {
 						$(".jumbotron h1").html(data["next"]);
+						if (data["idle"]=="TRUE") {
+							$(".next_queue").hide();
+							clearInterval(timerId_adik);
+							adik_adudu(loket, data["next"]);
+						}
 					}
 				});
 				return false;
@@ -130,8 +135,7 @@
 		});
 
 		var timerId=0;
-
-		// DUDU
+		// ADUDU
 		function adudu(loket, counter){
 			timerId = setInterval(function() {
 				 $.post("../apps/daemon_try_cek.php", { loket : loket, counter : counter }, function(msg){
@@ -142,6 +146,18 @@
 			}, 1000);
 		 }
 		
+		var timerId_adik=0;
+		// ADIK_ADUDU
+		function adik_adudu(loket, counter){
+			timerId_adik = setInterval(function() {
+				 $.post("../apps/daemon_cek.php", { loket : loket, counter : counter }, function(msg){
+					if(msg.huft == 2){
+						$(".next_queue").show();
+					}
+				},'JSON');
+			}, 1000);
+		}
+
 		// TRY CALL
 		$(".try_queue").click(function(){
 			var loket = $(".loket").val();
