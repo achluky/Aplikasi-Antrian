@@ -17,7 +17,7 @@
 			//update
 		}else{
 			//insert
-			$results = $mysqli->query('INSERT INTO data_antrian (waktu,counter,status) VALUES ("'.date("Y-m-d H:i:s").'",'.$loket.',3)');
+			$results = $mysqli->query('INSERT INTO data_antrian (waktu,counter,status) VALUES ("'.date("Y-m-d H:i:s").'",'.$loket.',4)');
 			$next_counter = $mysqli->insert_id;
 			$data['idle'] = "TRUE";
 		}
